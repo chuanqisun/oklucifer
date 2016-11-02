@@ -11,7 +11,7 @@ const homePageId = 'p_home';
 
 export let login = (): webdriver.promise.Promise<{}> => {
     let taskPromise = webdriver.promise.defer();
-    let sessionUser = accountManager.getSessionUser()
+    let sessionUser = accountManager.getSessionAccount();
     driver.get(routes.loginRoute);
     driver.findElement(By.id(usernameId)).sendKeys(sessionUser.username);
     driver.findElement(By.id(passwordId)).sendKeys(sessionUser.password);

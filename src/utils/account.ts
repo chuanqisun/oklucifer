@@ -1,16 +1,20 @@
-let directory = require('../../test-accounts.json');
+const directory: IDirectory = require('../../test-accounts.json');
+const accounts = directory.accounts;
+
+export interface IDirectory {
+    accounts: IAccount[];
+}
 
 export interface IAccount {
     username: string;
     password: string;
+    email: string;
 }
 
 export interface IAccountManager {
-    getSessionUser: () => IAccount;
+    getSessionAccount: () => IAccount;
 }
 
-const accounts: IAccount[] = directory.accounts;
-
 export let accountManager: IAccountManager = {
-    getSessionUser: () => accounts[0]
+    getSessionAccount: () => accounts[0]
 }
