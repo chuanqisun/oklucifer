@@ -15,6 +15,6 @@ export interface IAccountManager {
     getSessionAccount: () => IAccount;
 }
 
-export let accountManager: IAccountManager = {
+export const accountManager: IAccountManager = {
     getSessionAccount: () => accounts[0]
 }

@@ -5,11 +5,11 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            // "program": "${workspaceRoot}\\main.js",
+            "program": "${workspaceRoot}\\bin\\main.js",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "start",
+            "preLaunchTask": "build",
             "runtimeExecutable": null,
             "runtimeArgs": [
                 "--nolazy"
