@@ -1,27 +1,25 @@
 import { By, until, webdriver, driver, accountManager, routes, logger } from '../utils/index';
 
-const loginTimeout = 3000;
-const usernameId = 'login_username';
-const passwordId = 'login_password';
-const signInButtonId = 'sign_in_button';
-const homePageId = 'p_home';
+export class LoginPage {
+    private static loginTimeout = 3000;
+    private static usernameId = 'login_username';
+    private static passwordId = 'login_password';
+    private static signInButtonId = 'sign_in_button';
+    private static homePageId = 'p_home';
 
-function login(): webdriver.promise.Promise<{}> {
-    const sessionUser = accountManager.getSessionAccount();
-    logger.info('start login for', sessionUser.username);
+    public static login(): webdriver.promise.Promise<{}> {
+        const sessionUser = accountManager.getSessionAccount();
+        logger.info('start login for', sessionUser.username);
 
-    driver.get(routes.home.login.route);
-    driver.findElement(By.id(usernameId)).sendKeys(sessionUser.username);
-    driver.findElement(By.id(passwordId)).sendKeys(sessionUser.password);
-    driver.findElement(By.id(signInButtonId)).click();
-    
-    return driver.wait(until.elementsLocated(By.id(homePageId)), loginTimeout).then(() => {
-        logger.success('logged in as', sessionUser.username);
-    }).catch(() => {
-        logger.error('login failed for', sessionUser.username);
-    });
-}
-
-export let loginPage = {
-    login: login
+        driver.get(routes.home.login.route);
+        driver.findElement(By.id(this.usernameId)).sendKeys(sessionUser.username);
+        driver.findElement(By.id(this.passwordId)).sendKeys(sessionUser.password);
+        driver.findElement(By.id(this.signInButtonId)).click();
+        
+        return driver.wait(until.elementsLocated(By.id(this.homePageId)), this.loginTimeout).then(() => {
+            logger.success('logged in as', sessionUser.username);
+        }).catch(() => {
+            logger.error('login failed for', sessionUser.username);
+        });
+    }
 }
