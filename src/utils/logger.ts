@@ -13,22 +13,26 @@ function timestamp(): string {
     return chalk.grey(dateString + ' ' + timeString);
 }
 
-function log(...segments: string[]): webdriver.promise.Promise<void> {
-    return driver.call(() => {
-        console.log(segments.join(' '));
-    });
+function log(...segments: string[]): void {
+    console.log(segments.join(' '));
 }
 
 function success(...message: string[]): webdriver.promise.Promise<void> {
-    return log(successStamp, timestamp(), message.join(' '));
+    return driver.call(() => {
+        log(successStamp, timestamp(), message.join(' '));
+    });
 }
 
 function info(...message: string[]): webdriver.promise.Promise<void> {
-    return log(infoStamp, timestamp(), message.join(' '));
+    return driver.call(() => {
+        log(infoStamp, timestamp(), message.join(' '));
+    });
 } 
 
 function error(...message: string[]): webdriver.promise.Promise<void> {
-    return log(errorStamp, timestamp(), message.join(' '));    
+    return driver.call(() => {
+        log(errorStamp, timestamp(), message.join(' '));
+    });
 }
 
 export const logger = {
