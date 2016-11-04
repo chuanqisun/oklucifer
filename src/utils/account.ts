@@ -1,5 +1,4 @@
 const directory: IDirectory = require('../../test-accounts.json');
-const accounts = directory.accounts;
 
 export interface IDirectory {
     accounts: IAccount[];
@@ -11,10 +10,9 @@ export interface IAccount {
     email: string;
 }
 
-export interface IAccountManager {
-    getSessionAccount: () => IAccount;
-}
-
-export const accountManager: IAccountManager = {
-    getSessionAccount: () => accounts[0]
+export class AccountManager {
+    private static accounts = directory.accounts;
+    public static getSessionAccount() {
+        return AccountManager.accounts[0]
+    }
 }

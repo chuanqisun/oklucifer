@@ -1,42 +1,39 @@
-import { driver } from './index';
+import { Driver } from './index';
 import * as chalk from 'chalk';
 
-const successStamp = chalk.green('[ • ]');
-const infoStamp = chalk.blue('[ i ]');
-const errorStamp = chalk.red('[ x ]');
+export class Logger {
+    private static driver = Driver.driver;
+    private static successStamp = chalk.green('[ • ]');
+    private static infoStamp = chalk.blue('[ i ]');
+    private static errorStamp = chalk.red('[ x ]');
 
-function timestamp(): string {
-    let time = new Date();
-    let timeString = time.toLocaleTimeString();
-    let dateString = time.toLocaleDateString();
+    public static success(...message: string[]): webdriver.promise.Promise<void> {
+        return Logger.driver.call(() => {
+            Logger.log(Logger.successStamp, Logger.timestamp(), message.join(' '));
+        });
+    }
 
-    return chalk.grey(dateString + ' ' + timeString);
-}
+    public static info(...message: string[]): webdriver.promise.Promise<void> {
+        return Logger.driver.call(() => {
+            Logger.log(Logger.infoStamp, Logger.timestamp(), message.join(' '));
+        });
+    } 
 
-function log(...segments: string[]): void {
-    console.log(segments.join(' '));
-}
+    public static error(...message: string[]): webdriver.promise.Promise<void> {
+        return Logger.driver.call(() => {
+            Logger.log(Logger.errorStamp, Logger.timestamp(), message.join(' '));
+        });
+    }
 
-function success(...message: string[]): webdriver.promise.Promise<void> {
-    return driver.call(() => {
-        log(successStamp, timestamp(), message.join(' '));
-    });
-}
+    private static log(...segments: string[]): void {
+        console.log(segments.join(' '));
+    }
 
-function info(...message: string[]): webdriver.promise.Promise<void> {
-    return driver.call(() => {
-        log(infoStamp, timestamp(), message.join(' '));
-    });
-} 
+    private static timestamp(): string {
+        let time = new Date();
+        let timeString = time.toLocaleTimeString();
+        let dateString = time.toLocaleDateString();
 
-function error(...message: string[]): webdriver.promise.Promise<void> {
-    return driver.call(() => {
-        log(errorStamp, timestamp(), message.join(' '));
-    });
-}
-
-export const logger = {
-    success: success,
-    info: info,
-    error: error
+        return chalk.grey(dateString + ' ' + timeString);
+    }
 } 

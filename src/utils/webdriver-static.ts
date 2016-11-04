@@ -1,5 +1,7 @@
-import * as seleniumWebdriver from 'selenium-webdriver';
+import * as webdriver from 'selenium-webdriver';
 
-export const webdriver = seleniumWebdriver;
-export const By = webdriver.By;
-export const until = webdriver.until;
+export class Webdriver {
+    public static webdriver = webdriver;
+    public static By = webdriver.By;
+    public static until = webdriver.until;
+}
