@@ -10,7 +10,10 @@ export class Routes {
                 user: {
                     route: 'https://www.okcupid.com/login/profile/{0}',
                     questions: {
-                        route: 'https://www.okcupid.com/profile/{0}/questions'
+                        route: 'https://www.okcupid.com/profile/{0}/questions',
+                        questionSegment: {
+                            route: 'https://www.okcupid.com/profile/{0}/questions?low={1}'
+                        }
                     }
                 }
             }
